@@ -1,0 +1,21 @@
+{
+  "name": "netsnatch/yii2-events",
+  "description": "Yii2 global events handlers",
+  "authors": [
+    {
+      "name": "netsnatch"
+    }
+  ],
+  "keywords": [
+    "yii2"
+  ],
+  "require": {
+    "php": ">=7.1",
+    "yiisoft/yii2": "~2.0.7"
+  },
+  "autoload": {
+    "psr-4": {
+      "Netsnatch\\Yii2Events\\": "src/"
+    }
+  }
+}
