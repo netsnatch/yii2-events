@@ -17,21 +17,30 @@ class Events extends Component
             return;
         }
 
-        foreach ($this->events as $eventName => $eventHandler) {
-            Yii::$app->on($eventName, function (Event $event) use ($eventHandler) {
-                if (is_callable($eventHandler)) {
-                    Yii::$container->invoke($eventHandler, [$event]);
-                }
+        foreach ($this->events as $eventName => $eventHandlers) {
+            if (!is_array($eventHandlers) || !isset($eventHandlers[0])) { // hash format: component, callable, string
+                $eventHandlers = [$eventHandlers];
+            } // else format: handler, handler 1, handler 2, ...
 
-                $eventHandler = Yii::createObject($eventHandler);
-                if (method_exists($eventHandler, 'handle')) {
-                    return $eventHandler->handle($event);
-                }
+            foreach ($eventHandlers as $handler) {
+                $this->on($eventName, function (Event $event) use ($handler) {
+                    /** @var string|array|callable $handler */
+                    if (is_callable($handler)) {
+                        Yii::$container->invoke($handler, [$event]);
+                        return true;
+                    }
 
-                throw new InvalidCallException(
-                    'Event handler should be callable or valid class with "handle()" method'
-                );
-            });
+                    $handler = Yii::createObject($handler);
+                    if (method_exists($handler, 'handle')) {
+                        $handler->handle($event);
+                        return true;
+                    }
+
+                    throw new InvalidCallException(
+                        'Event handler should be callable or valid class with "handle()" method'
+                    );
+                });
+            }
         }
     }
 }
