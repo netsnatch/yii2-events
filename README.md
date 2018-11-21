@@ -2,11 +2,11 @@ Instalation
 ---
 Either run
 
-`$ php composer.phar require netsnatch/yii2-events:"~1.0.0"`
+`$ php composer.phar require netsnatch/yii2-events:"~1.0.2"`
 
 or add
 
-`"netsnatch/yii2-events": "~1.0.0"`
+`"netsnatch/yii2-events": "~1.0.2"`
 
 to the require section of your composer.json file.
 
@@ -21,6 +21,10 @@ Usage
             'class' => \Netsnatch\Yii2Events\Events::class,
             'events' => [
                 'app\events\SomeEvent' => 'app\events\handlers\SomeHandler',
+                'app\events\SomeEvent2' => [
+                    'app\events\handlers\SomeHandler2',
+                    'app\events\handlers\SomeHandler3',
+                ],
             ],
         ],
         // ...
