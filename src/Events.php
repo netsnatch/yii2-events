@@ -23,7 +23,7 @@ class Events extends Component
             } // else format: handler, handler 1, handler 2, ...
 
             foreach ($eventHandlers as $handler) {
-                $this->on($eventName, function (Event $event) use ($handler) {
+                Yii::$app->on($eventName, function (Event $event) use ($handler) {
                     /** @var string|array|callable $handler */
                     if (is_callable($handler)) {
                         Yii::$container->invoke($handler, [$event]);

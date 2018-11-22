@@ -2,11 +2,11 @@ Instalation
 ---
 Either run
 
-`$ php composer.phar require netsnatch/yii2-events:"~1.0.2"`
+`$ php composer.phar require netsnatch/yii2-events:"~1.0.3"`
 
 or add
 
-`"netsnatch/yii2-events": "~1.0.2"`
+`"netsnatch/yii2-events": "~1.0.3"`
 
 to the require section of your composer.json file.
 
